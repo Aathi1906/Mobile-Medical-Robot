@@ -1,0 +1,6 @@
+libraries/
+├── Adafruit_MAX30100/
+├── Adafruit_SSD1306/
+
+Adafruit MAX30100: GitHub - Adafruit MAX30100
+Adafruit SSD1306: GitHub - Adafruit SSD1306
