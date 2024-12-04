@@ -1,0 +1,44 @@
+// for Movement control
+
+Wiring:
+HC-05 Bluetooth Module:
+
+VCC → 5V (Arduino)
+GND → GND (Arduino)
+TX → Pin 10 (Arduino)
+RX → Pin 11 (Arduino)
+L298N Motor Driver:
+
+IN1 → Pin 3 (Arduino)
+IN2 → Pin 4 (Arduino)
+IN3 → Pin 5 (Arduino)
+IN4 → Pin 6 (Arduino)
+ENA → 5V (Arduino)
+ENB → 5V (Arduino)
+OUT1 → Motor 1 (BO Motor)
+OUT2 → Motor 1
+OUT3 → Motor 2 (BO Motor)
+OUT4 → Motor 2
+
+
+//for Medical parameters
+
+MAX30100 Sensor:
+
+VCC -> 5V (on Arduino Uno)
+GND -> GND (on Arduino Uno)
+SDA -> A4 (on Arduino Uno)
+SCL -> A5 (on Arduino Uno)
+INT -> Not connected (optional for interrupts)
+OLED Display (SSD1306):
+
+VCC -> 5V (on Arduino Uno)
+GND -> GND (on Arduino Uno)
+SDA -> A4 (on Arduino Uno)
+SCL -> A5 (on Arduino Uno)
+HC-05 Bluetooth Module:
+
+VCC -> 5V (on Arduino Uno)
+GND -> GND (on Arduino Uno)
+TX -> Pin 10 (on Arduino Uno)
+RX -> Pin 11 (on Arduino Uno) 
