@@ -1,80 +1,79 @@
-// Mobile-Medical-Robot/
-│
-├── src/
-│   └── MobileMedicalRobot.ino     # Arduino code
-│
-├── README.md                       # Project documentation
-├── LICENSE                         # License file (optional, add as needed)
-└── images/                         # Folder for images/screenshots (optional)
-//
+## Mobile Medical Robot Movement
+
+This part of the project adds mobility to the medical robot using **Bluetooth control** via the **HC-05 Bluetooth Module**, **L298N Motor Driver**, and **4 BO motors**. The robot can be controlled wirelessly from a smartphone using a Bluetooth terminal app.
+
+## Components for Movement
+- **4 BO Motors**
+- **L298N Motor Driver**
+- **HC-05 Bluetooth Module**
+- **Arduino Uno**
+
+## Wiring for Movement Control
+The wiring for the Bluetooth communication and motor control remains as described above.
+
+## Bluetooth Commands:
+- **F**: Move Forward
+- **B**: Move Backward
+- **L**: Turn Left
+- **R**: Turn Right
+- **S**: Stop
+
+## Usage
+Once the Bluetooth connection is established, use the terminal app to control the robot. The robot will move according to the commands sent via Bluetooth.
 
 
-// Mobile Medical Robot - Measures Heart Rate and SpO2
-// Dependencies: MAX30100, Adafruit GFX, Adafruit SSD1306
 
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include "MAX30100_PulseOximeter.h"
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define OLED_RESET -1
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+# MAX30100 Bluetooth Health Monitor
 
-PulseOximeter pox;
-uint32_t lastReportTime = 0;
-#define REPORTING_PERIOD_MS 1000
+This project uses an **Arduino Uno** along with the **MAX30100 Pulse Oximeter** and **Heart Rate Sensor**, an **OLED I2C display**, and a **HC-05 Bluetooth Module** to monitor and display the heart rate (BPM) and SpO2 levels of a patient. The data is also sent wirelessly via Bluetooth to a connected device.
 
-void onBeatDetected() {
-    Serial.println("Beat detected!");
-}
+## Features
+- Measures **SpO2** (blood oxygen saturation) and **BPM** (heart rate).
+- Displays data on a 0.96" OLED I2C display.
+- Sends real-time data over Bluetooth to a connected device (e.g., smartphone or computer).
 
-void setup() {
-    Serial.begin(9600);
+## Components
+- Arduino Uno
+- MAX30100 Pulse Oximeter and Heart Rate Sensor
+- OLED I2C Display (SSD1306)
+- HC-05 Bluetooth Module
+- Jumper Wires
 
- // Initialize the OLED display
-    if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-        Serial.println(F("SSD1306 allocation failed"));
-        for(;;);
-    }
-    display.clearDisplay();
-    display.setTextSize(1);
-    display.setTextColor(SSD1306_WHITE);
-    display.display();
-    // Initialize MAX30100 sensor
-    Serial.print("Initializing Pulse Oximeter...");
-    if (!pox.begin()) {
-        Serial.println("FAILED");
-        for(;;);
-    } else {
-        Serial.println("SUCCESS");
-    }
-    // Set the onBeatDetected function as a callback
-    pox.setOnBeatDetectedCallback(onBeatDetected);
-}
+## Wiring
+- **MAX30100 Sensor**:  
+  - VCC -> 5V (Arduino)
+  - GND -> GND (Arduino)
+  - SDA -> A4 (Arduino)
+  - SCL -> A5 (Arduino)
 
-void loop() {
-    // Update the sensor readings
-    pox.update();
-    // Display heart rate and SpO2 every second
-    if (millis() - lastReportTime > REPORTING_PERIOD_MS) {
-        float heartRate = pox.getHeartRate();
-        float SpO2 = pox.getSpO2();
-        Serial.print("Heart rate (BPM): ");
-        Serial.print(heartRate);
-        Serial.print(" | SpO2: ");
-        Serial.println(SpO2);
-        // Update OLED display
-        display.clearDisplay();
-        display.setCursor(0, 10);
-        display.setTextSize(2);
-        display.print("BPM: ");
-        display.println(heartRate);
-        display.setCursor(0, 35);
-        display.print("SpO2: ");
-        display.println(SpO2);
-        display.display();
-        lastReportTime = millis();
-    }
-}
+- **OLED Display**:  
+  - VCC -> 5V (Arduino)
+  - GND -> GND (Arduino)
+  - SDA -> A4 (Arduino)
+  - SCL -> A5 (Arduino)
+
+- **HC-05 Bluetooth Module**:  
+  - VCC -> 5V (Arduino)
+  - GND -> GND (Arduino)
+  - TX -> Pin 10 (Arduino)
+  - RX -> Pin 11 (Arduino)
+
+## Libraries Required
+- Adafruit MAX30100
+- Adafruit SSD1306
+- SoftwareSerial
+
+## Installation
+1. Clone this repository.
+2. Install the necessary libraries from the Arduino Library Manager.
+3. Open the `MAX30100_Bluetooth_Health_Monitor.ino` file in Arduino IDE.
+4. Upload the code to your Arduino Uno.
+
+## Usage
+1. Open a Bluetooth terminal app (e.g., **Bluetooth Terminal** on Android).
+2. Pair with the **HC-05 Bluetooth Module**.
+3. View the real-time **BPM** and **SpO2** data being sent from the Arduino.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
